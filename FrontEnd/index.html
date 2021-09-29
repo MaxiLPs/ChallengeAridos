@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Aridos</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function miFuncion(){
+            let algo = $("input[id='id_texto']").val();
+            console.log(algo);
+            const base = "localhost:3000/";
+            const uri = "grupos?alias=" + algo;
+
+            // $.ajaxSetup({
+            //     headers: { 'Access-Control-Allow-Origin': '*' }
+            // });
+
+            // var jqxhr = $.get('localhost:3000/grupos?alias=Martin820', function() {
+            //     // alert( "success" );
+            // })
+            // .done(function() {
+            //     alert( "second success" );
+            // })
+            // // .fail(function() {
+            // //     alert( "error" );
+            // // cuando devuelvo error 300/400/500 entra acá
+            // // })
+            // // .always(function() {
+            // //     alert( "finished" );
+            // // siempre se ejecuta, al final, independientemente de los otras ejecuciones
+            // // });
+
+
+            $.ajax({
+                headers: { "Accept": "application/json"},
+                type: 'GET',
+                url: 'localhost:3000/grupos?alias=Martin820',
+                crossDomain: true,
+                beforeSend: function(xhr){
+                    xhr.withCredentials = true;
+                },
+                success: function(data, textStatus, request){
+                    console.log(data);
+                }
+            });
+
+        }
+        </script>
+</head>
+<body>
+    <input type="text" name="" id="id_texto" >
+    <button onclick="miFuncion()">Dale!</button>
+</body>
+</html>

@@ -147,6 +147,8 @@ app.get("/grupos", function (req, res) {
 
   const query = mysql.format(sql_query, valores);
 
+  console.log("entró");
+
   con.query(query, function (err, result, fields) {
     if (err) throw err;
     res.send(JSON.stringify(result));
