@@ -1,18 +1,23 @@
 const express = require("express");
+const cors = require('cors')
+// var bodyParser = require("body-parser");
+var mysql = require("mysql");
+// const { query } = require("express");
+// const { json } = require("body-parser");
 const app = express();
 
-var bodyParser = require("body-parser");
+
+
+app.use(cors());
 
 app.use(express.json());
+
 app.use(
   express.urlencoded({
     extended: false,
   })
 );
 
-var mysql = require("mysql");
-const { query } = require("express");
-const { json } = require("body-parser");
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -22,6 +27,7 @@ var con = mysql.createConnection({
 }); 
 
 con.connect();
+
 
 app.get("/", function (req, res) {
   res.send("Saludos desde express");
@@ -146,8 +152,6 @@ app.get("/grupos", function (req, res) {
   const valores = [alias];
 
   const query = mysql.format(sql_query, valores);
-
-  console.log("entró");
 
   con.query(query, function (err, result, fields) {
     if (err) throw err;

@@ -5,38 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Challenge Aridos</title>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
     <script type="text/javascript">
         function miFuncion(){
-            let algo = $("input[id='id_texto']").val();
-            console.log(algo);
-            const base = "localhost:3000/";
-            const uri = "grupos?alias=" + algo;
-
-            // $.ajaxSetup({
-            //     headers: { 'Access-Control-Allow-Origin': '*' }
-            // });
-
-            // var jqxhr = $.get('localhost:3000/grupos?alias=Martin820', function() {
-            //     // alert( "success" );
-            // })
-            // .done(function() {
-            //     alert( "second success" );
-            // })
-            // // .fail(function() {
-            // //     alert( "error" );
-            // // cuando devuelvo error 300/400/500 entra acá
-            // // })
-            // // .always(function() {
-            // //     alert( "finished" );
-            // // siempre se ejecuta, al final, independientemente de los otras ejecuciones
-            // // });
-
-
+            const usuario = $("input[id='id_texto']").val();
+            console.log(usuario);
+            const base = "http://localhost:3000/";
+            const uri = "grupos?alias=" + usuario;
             $.ajax({
                 headers: { "Accept": "application/json"},
                 type: 'GET',
-                url: 'localhost:3000/grupos?alias=Martin820',
+                url: base+uri,
                 crossDomain: true,
                 beforeSend: function(xhr){
                     xhr.withCredentials = true;
@@ -46,11 +30,39 @@
                 }
             });
 
+            table = $('#tablita').DataTable({
+                destroy: true,
+                ajax: {
+                    url: base+uri,
+                    dataSrc: ''
+                },
+                columns: [
+                    { data: 'nombre' },
+                    { data: 'lugar' }
+                ]
+            });    
+            
         }
-        </script>
+    </script>
+
 </head>
 <body>
     <input type="text" name="" id="id_texto" >
     <button onclick="miFuncion()">Dale!</button>
+
+    <table id="tablita" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Lugar</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Nombre</th>
+                <th>Lugar</th>
+            </tr>
+        </tfoot>
+    </table>
 </body>
 </html>
