@@ -29,3 +29,7 @@ El proyecto está creado con:
    ```JS
    const DB_PASS = 'Ingrese contraseña de root de la DB';
    ```
+5. Levantar el Servidor
+   ```sh
+   node index.js
+   ```
