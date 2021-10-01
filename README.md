@@ -15,11 +15,11 @@ El proyecto está creado con:
 
 ### Instalación
 
-1. Clone the repo
+1. Clonar el repositorio
    ```sh
    git clone https://github.com/MaxiLPs/ChallengeAridos.git
    ```
-2. Install NPM packages
+2. Instalar NPM packages
    ```sh
    npm install
    ```
