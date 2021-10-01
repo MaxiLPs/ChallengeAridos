@@ -7,11 +7,18 @@
     <title>Challenge Aridos</title>
     
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
-    <script type="text/javascript">
+
+    <!-- <script type="text/javascript">
+        $(document).ready( function () {
+            $('#tablita').DataTable();
+        } );
+        
         function miFuncion(){
             const usuario = $("input[id='id_texto']").val();
             console.log(usuario);
@@ -30,7 +37,7 @@
                 }
             });
 
-            table = $('#tablita').DataTable({
+            $('#tablita').DataTable({
                 destroy: true,
                 ajax: {
                     url: base+uri,
@@ -43,26 +50,87 @@
             });    
             
         }
-    </script>
+    </script> -->
+    <script type="text/javascript">
+        $(document).ready( function () {
+            const base = "http://localhost:3000/";
+            const uri = "usuarios";
+            $.ajax({
+                headers: { "Accept": "application/json"},
+                type: 'GET',
+                url: base+uri,
+                crossDomain: true,
+                beforeSend: function(xhr){
+                    xhr.withCredentials = true;
+                },
+                success: function(data, textStatus, request){
+                    console.log(data);
+                }
+            });
 
+            $('#tablita').DataTable({
+                language: {
+                    "lengthMenu"    : "Mostrar _MENU_ resultados por página",
+                    "zeroRecords"   : "Nada que mostrar - Lo sentimos",
+                    "info"          : "Mostrando la página _PAGE_ de _PAGES_",
+                    "infoEmpty"     : "Ningún resultado disponible",
+                    "search"        : "Búsqueda:",
+                    "paginate": {
+                        "first"     : "Primera",
+                        "last"      : "Última",
+                        "next"      : "Siguiente",
+                        "previous"  : "Previa"
+                    },
+                },
+                destroy: true,
+                ajax: {
+                    url: base+uri,
+                    dataSrc: ''
+                },
+                columns: [
+                    { data: 'ID' },
+                    { data: 'Usuario' },
+                    { data: 'Contraseña' },
+                    { data: 'Fecha de Creación' },
+                    { data: 'Estado' }
+                ]
+            });     
+        } );
+        
+        
+    </script>
 </head>
 <body>
-    <input type="text" name="" id="id_texto" >
-    <button onclick="miFuncion()">Dale!</button>
-
-    <table id="tablita" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Lugar</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>Nombre</th>
-                <th>Lugar</th>
-            </tr>
-        </tfoot>
-    </table>
+    <header>
+        <section class="header">
+            <img src="img/Logo.png" alt="Logo Árido">
+            <ul>
+                <li><a class="active" href="#"> Usuarios</a></li>
+                <li><a href="#">Alta Usuario</a></li>
+                <li><a href="#">Grupo de Seguridad</a></li>
+            </ul>
+        </section>
+        <svg
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            class="svg"
+            style="height: 42px; width: 100%; fill: #dddff7; opacity: 1; transform: rotateY(0deg); filter: drop-shadow(3px 3px 2px rgba(0,0,0,.7));">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z">
+      </path>
+    </svg>
+    </header>
+    <main class="contenido">
+        <table id="tablita" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Usuario</th>
+                    <th>Contraseña</th>
+                    <th>Fecha de Creación</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+        </table>
+    </main>
 </body>
 </html>

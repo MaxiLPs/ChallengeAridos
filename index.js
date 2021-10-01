@@ -110,8 +110,8 @@ result= con.query("SELECT * FROM user_base")
 
 //BUSCA Y DEVUELVE TODOS LOS USUARIOR 
 app.get("/usuarios", function (req, res) {
-  // const alias = req.query.alias;
-  const query = "SELECT * FROM `user_base`";
+  // const query = "SELECT * FROM `user_base`";
+  const query = "SELECT idusuario as 'ID', alias as 'Usuario', password as 'Contraseña', date_creation as 'Fecha de Creación', state as 'Estado' FROM `user_base`";
 
     con.query(query, function (err, result, fields) {
       if (err) throw err;
