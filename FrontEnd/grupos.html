@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Challenge Aridos</title>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("button").click(function(){
+                const usuario = $("input[id='id_usuario']").val();
+                const base = "http://localhost:3000/grupos";
+                const uri = "?alias=" + usuario;
+
+                $.ajax({
+                    headers: { "Accept": "application/json"},
+                    type: 'GET',
+                    url: base+uri,
+                    crossDomain: true,
+                    beforeSend: function(xhr){
+                        xhr.withCredentials = true;
+                    },
+                    success: function(data, textStatus, request){
+                        console.log(data);
+                    }
+                });
+
+                $('#tablita').DataTable({
+                    "searching": false,
+                    language: {
+                        "lengthMenu"    : "Mostrar _MENU_ resultados por página",
+                        "zeroRecords"   : "Nada que mostrar - Lo sentimos",
+                        "info"          : "Mostrando la página _PAGE_ de _PAGES_",
+                        "infoEmpty"     : "Ningún resultado disponible",
+                        "search"        : "Búsqueda:",
+                        "paginate": {
+                            "first"     : "Primera",
+                            "last"      : "Última",
+                            "next"      : "Siguiente",
+                            "previous"  : "Previa"
+                        },
+                    },
+                    destroy: true,
+                    ajax: {
+                        url: base+uri,
+                        dataSrc: ''
+                    },
+                    columns: [
+                        { data: 'Usuario' },
+                        { data: 'Grupo de Seguridad' }
+                    ]
+                });     
+            } );
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <section class="header" id="header">
+            <img src="img/Logo.png" alt="Logo Árido">
+            <ul>
+                <li><a href="index.html"> Usuarios</a></li>
+                <li><a href="alta.html">Alta Usuario</a></li>
+                <li><a class="active" href="grupos.html">Grupo de Seguridad</a></li>
+            </ul>
+        </section>
+        <svg
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+            class="svg"
+            style="height: 42px; width: 100%; fill: #dddff7; opacity: 1; transform: rotateY(0deg); filter: drop-shadow(3px 3px 2px rgba(0,0,0,.7));">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z">
+      </path>
+    </svg>
+    </header>
+    <main class="contenido" id="contenido">
+        <section class="grupo_seguridad">
+            <h2>Buscar Grupos de Seguridad de un Usuario</h2>
+            <div class="formulario">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="id_usuario" placeholder="Nombre de Usuario">
+                    <label for="id_usuario">Nombre de Usuario</label>
+                </div>
+                <button class="btn btn-primary">Buscar</button>
+            </div>
+            <table id="tablita" class="display" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Grupo de Seguridad</th>
+                    </tr>
+                </thead>
+            </table>
+        </section>
+    </main>
+</body>
+</html>

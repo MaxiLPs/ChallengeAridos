@@ -29,9 +29,9 @@ var con = mysql.createConnection({
 con.connect();
 
 
-app.get("/", function (req, res) {
-  res.send("Saludos desde express");
-});
+// app.get("/", function (req, res) {
+//   res.send("Saludos desde express");
+// });
 
 //ALTA DE USUARIO
 // Solo se recibe alias y pass. Luego se agrega la fecha en formato yyyy/mm/dd hh:mm:ss
@@ -39,6 +39,14 @@ app.get("/", function (req, res) {
 app.post("/usuarios", function (req, res, next) {
   const alias = req.body["alias"];
   const password = req.body["password"];
+
+  if (!alias && !password){
+    res.status(409).send({
+      status: 409,
+      messenge: "El password o Alias no puede quedar vacío",
+    });
+    return
+  }
 
   const ahora = new Date();
 
@@ -58,33 +66,11 @@ app.post("/usuarios", function (req, res, next) {
   
   let query = mysql.format(sql_query, valores);
 
-function pepito (err, result, fields){
-  if (err){
-    if(err.code == 'ER_DUP_ENTRY' || err.errno == 1062)
-    {
-      res.status(409).send({
-        status: 409,
-        messenge: "El usuario ya existe",
-      });
-    }
-    else{
-      res.status(500).send({
-        status: 500,
-        messenge: "Error de servidor",
-      });
-    }
-  } else {
-    res.status(201).send({
-      status: 201,
-      messenge: "Se agregó al usuario ID: " + result.insertId ,
-    });
-  }
-}
 
+  result= con.query("SELECT * FROM user_base")
 
-result= con.query("SELECT * FROM user_base")
-
-  con.query(query, function(err, result, fields){
+  // con.query(query, function(err, result, fields){
+  con.query(query, function(err, result){
     if (err){
       if(err.code == 'ER_DUP_ENTRY' || err.errno == 1062)
       {
@@ -111,11 +97,12 @@ result= con.query("SELECT * FROM user_base")
 //BUSCA Y DEVUELVE TODOS LOS USUARIOR 
 app.get("/usuarios", function (req, res) {
   // const query = "SELECT * FROM `user_base`";
-  const query = "SELECT idusuario as 'ID', alias as 'Usuario', password as 'Contraseña', date_creation as 'Fecha de Creación', state as 'Estado' FROM `user_base`";
+  const query = "SELECT idusuario as 'ID', alias as 'Usuario', password as 'Contraseña',"+
+  " date_creation as 'Fecha de Creación', state as 'Estado' FROM `user_base`";
 
     con.query(query, function (err, result, fields) {
       if (err) throw err;
-      res.send(JSON.stringify(result));
+      res.status(200).send(JSON.stringify(result));
     });
 });
 
@@ -147,7 +134,7 @@ app.get("/usuarios/:alias", function (req, res) {
 
 app.get("/grupos", function (req, res) {
   const alias = req.query.alias;
-  const sql_query= "SELECT alias as 'nombre', nombre as 'lugar' FROM user_security us, user_base ub, security_groups sg " + 
+  const sql_query= "SELECT alias as 'Usuario', nombre as 'Grupo de Seguridad' FROM user_security us, user_base ub, security_groups sg " + 
   "WHERE us.user_base_id = ub.idusuario AND us.security_groups_id = sg.id AND alias =?";
   const valores = [alias];
 

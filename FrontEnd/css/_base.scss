@@ -1,0 +1,52 @@
+$colorPrincipal: #dddff7;
+$colorAridos: #292e6e;
+$sizeHeader: 65px;
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+// html{
+//     height: 100vh;
+// }
+
+header{
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+    top:0;
+    height: $sizeHeader
+}
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    background: $colorPrincipal;
+    img{
+        width: 155px;
+        margin: 1rem 0 0 20px;
+        // padding: 10px;
+    }
+    
+    ul{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0 20px 0 0;
+        li{
+            list-style: none;
+            margin: 0 1rem;
+            a{
+                color: $colorAridos;
+                font-weight: 1rem;
+            }
+            .active{
+                text-decoration: underline;
+                font-weight: bold;
+            }
+        }
+    }
+}
