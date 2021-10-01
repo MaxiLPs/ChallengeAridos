@@ -1,3 +1,5 @@
+[![made-with-javascript](https://img.shields.io/badge/Made%20with-JavaScript-1f425f.svg)](https://www.javascript.com)
+[![Npm package version](https://img.shields.io/badge/npm-v6.14.15-blue)](https://npmjs.com/package/express)
 # ChallengeAridos
 
 ### Construido con
