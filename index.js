@@ -13,11 +13,12 @@ app.use(
   })
 );
 
+const DB_PASS = 'Ingrese contraseña de root de la DB';
 
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "34421819m",
+  password: DB_PASS,
   database: "aridos",
 }); 
 
