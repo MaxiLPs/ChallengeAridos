@@ -13,6 +13,7 @@ app.use(
   })
 );
 
+
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -21,6 +22,7 @@ var con = mysql.createConnection({
 }); 
 
 con.connect();
+
 
 //ALTA DE USUARIO
 // Solo se recibe alias y pass. Luego se agrega la fecha en formato yyyy/mm/dd hh:mm:ss
