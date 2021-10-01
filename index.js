@@ -1,12 +1,7 @@
 const express = require("express");
 const cors = require('cors')
-// var bodyParser = require("body-parser");
 var mysql = require("mysql");
-// const { query } = require("express");
-// const { json } = require("body-parser");
 const app = express();
-
-
 
 app.use(cors());
 
@@ -18,7 +13,6 @@ app.use(
   })
 );
 
-
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -27,11 +21,6 @@ var con = mysql.createConnection({
 }); 
 
 con.connect();
-
-
-// app.get("/", function (req, res) {
-//   res.send("Saludos desde express");
-// });
 
 //ALTA DE USUARIO
 // Solo se recibe alias y pass. Luego se agrega la fecha en formato yyyy/mm/dd hh:mm:ss
@@ -69,7 +58,6 @@ app.post("/usuarios", function (req, res, next) {
 
   result= con.query("SELECT * FROM user_base")
 
-  // con.query(query, function(err, result, fields){
   con.query(query, function(err, result){
     if (err){
       if(err.code == 'ER_DUP_ENTRY' || err.errno == 1062)
@@ -96,7 +84,6 @@ app.post("/usuarios", function (req, res, next) {
 
 //BUSCA Y DEVUELVE TODOS LOS USUARIOR 
 app.get("/usuarios", function (req, res) {
-  // const query = "SELECT * FROM `user_base`";
   const query = "SELECT idusuario as 'ID', alias as 'Usuario', password as 'Contraseña',"+
   " date_creation as 'Fecha de Creación', state as 'Estado' FROM `user_base`";
 

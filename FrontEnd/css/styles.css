@@ -55,13 +55,13 @@ header {
   align-content: center;
 }
 
-.alta h2 {
+.alta h2, .grupo_seguridad h2 {
   color: #292e6e;
   text-align: center;
   margin-bottom: 40px;
 }
 
-.alta .formulario {
+.alta .formulario, .grupo_seguridad .formulario {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -69,7 +69,7 @@ header {
   margin-bottom: 50px;
 }
 
-.alta .formulario input {
+.alta .formulario input, .grupo_seguridad .formulario input {
   padding-left: 10px;
   color: blue;
 }
