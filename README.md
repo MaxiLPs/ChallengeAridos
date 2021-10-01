@@ -25,7 +25,7 @@ El proyecto está creado con:
    ```
 3. Ejecutar los Scripts ubicados en la carpeta Script DB en el orden dispuesto
 
-4. Enter your API in `index.js`
+4. Ingresar en la API `index.js` y modificar la siguiente línea:
    ```JS
    const DB_PASS = 'Ingrese contraseña de root de la DB';
    ```
